@@ -1,0 +1,29 @@
+# Compiled class files
+**/target/
+*.class
+
+# Node & Frontend
+**/node_modules/
+**/.angular/
+**/dist/
+
+# Logs & temp files
+*.log
+*.tmp
+*.bak
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Maven wrapper distribution zip cache
+**/.mvn/wrapper/maven-wrapper.jar

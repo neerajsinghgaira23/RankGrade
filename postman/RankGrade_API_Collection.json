@@ -1,0 +1,211 @@
+{
+  "info": {
+    "name": "RankGrade API Collection",
+    "description": "Comprehensive REST API collection for RankGrade - Online Quiz and Performance Analyzer (BCA Final-Year Project)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usernameOrEmail\": \"admin\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login (Student)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usernameOrEmail\": \"student\",\n  \"password\": \"student123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"newstudent\",\n  \"email\": \"newstudent@example.com\",\n  \"password\": \"student123\",\n  \"fullName\": \"Jane Doe\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student Assessment APIs",
+      "item": [
+        {
+          "name": "Get Published Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes/published", "host": ["{{baseUrl}}"], "path": ["quizzes", "published"] }
+          }
+        },
+        {
+          "name": "Get Quiz Details",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes/published/1", "host": ["{{baseUrl}}"], "path": ["quizzes", "published", "1"] }
+          }
+        },
+        {
+          "name": "Start Exam Attempt",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes/1/start", "host": ["{{baseUrl}}"], "path": ["quizzes", "1", "start"] }
+          }
+        },
+        {
+          "name": "Save Live Answer",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionId\": 1,\n  \"selectedOptionId\": 2\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/quizzes/attempts/1/answer", "host": ["{{baseUrl}}"], "path": ["quizzes", "attempts", "1", "answer"] }
+          }
+        },
+        {
+          "name": "Submit Exam Attempt",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes/attempts/1/submit", "host": ["{{baseUrl}}"], "path": ["quizzes", "attempts", "1", "submit"] }
+          }
+        },
+        {
+          "name": "Get Attempt Result & Review",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes/attempts/1/result", "host": ["{{baseUrl}}"], "path": ["quizzes", "attempts", "1", "result"] }
+          }
+        },
+        {
+          "name": "Get Student Attempt History",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/student/history", "host": ["{{baseUrl}}"], "path": ["student", "history"] }
+          }
+        },
+        {
+          "name": "Get Student Analytics & Trends",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/student/analytics", "host": ["{{baseUrl}}"], "path": ["student", "analytics"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Management APIs",
+      "item": [
+        {
+          "name": "Get Admin Overview Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/stats", "host": ["{{baseUrl}}"], "path": ["admin", "stats"] }
+          }
+        },
+        {
+          "name": "Create Assessment Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cloud Computing\",\n  \"description\": \"AWS, Azure, and distributed architectures.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/admin/categories", "host": ["{{baseUrl}}"], "path": ["admin", "categories"] }
+          }
+        },
+        {
+          "name": "Create Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Cloud Computing Basics\",\n  \"description\": \"Introductory cloud concepts.\",\n  \"categoryId\": 1,\n  \"timeLimitMinutes\": 10,\n  \"totalMarks\": 20,\n  \"passingMarks\": 40,\n  \"shuffleQuestions\": true,\n  \"showResultImmediately\": true\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/admin/quizzes", "host": ["{{baseUrl}}"], "path": ["admin", "quizzes"] }
+          }
+        },
+        {
+          "name": "Add Question to Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionText\": \"What does IaaS stand for?\",\n  \"marks\": 10,\n  \"explanation\": \"IaaS stands for Infrastructure as a Service.\",\n  \"options\": [\n    { \"optionText\": \"Infrastructure as a Service\", \"correct\": true, \"optionOrder\": 1 },\n    { \"optionText\": \"Internet as a Service\", \"correct\": false, \"optionOrder\": 2 },\n    { \"optionText\": \"Integration as a System\", \"correct\": false, \"optionOrder\": 3 },\n    { \"optionText\": \"Interface and Application System\", \"correct\": false, \"optionOrder\": 4 }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/admin/quizzes/1/questions", "host": ["{{baseUrl}}"], "path": ["admin", "quizzes", "1", "questions"] }
+          }
+        },
+        {
+          "name": "Update Quiz Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"PUBLISHED\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/admin/quizzes/1/status", "host": ["{{baseUrl}}"], "path": ["admin", "quizzes", "1", "status"] }
+          }
+        },
+        {
+          "name": "Get Registered Students",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/students", "host": ["{{baseUrl}}"], "path": ["admin", "students"] }
+          }
+        }
+      ]
+    }
+  ]
+}
